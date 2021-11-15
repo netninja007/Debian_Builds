@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #Update and upgrade the system to the latest version.
 apt update && apt upgrade
