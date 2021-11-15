@@ -1,6 +1,6 @@
 The project is created to make setting up nextcloud as easy as running a single bash script. Some user input is still required but outlined clearly in the steps below. The script installs nginx as the web server and mariadb as the database. It also installs dependency tools such as wget and unzip.
 
-Target OS: Debian 11 (last tested: )
+Target OS: Debian 11 (last tested: 15/11/2021)
 
 
 1. Edit the nextcloud version to match the latest (can be found here: https://nextcloud.com/install/#instructions-server) at lines 64 and 67 of the file "install.sh".
