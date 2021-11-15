@@ -9,12 +9,6 @@ apt upgrade
 #Install ssh
 apt install ssh
 
-echo "Which user should I generate the keys for?"
-
-read $user
-
-su $user
-
 #Regenerate the RSA and ED25519 keys
 rm -f /etc/ssh/ssh_host_*
 ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key -N ""
