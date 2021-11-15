@@ -1,3 +1,4 @@
+# Nextcloud install (Nginx + MariaDB)
 The project is created to make setting up nextcloud as easy as running a single bash script. Some user input is still required but outlined clearly in the steps below. The script installs nginx as the web server and mariadb as the database. It also installs dependency tools such as wget and unzip.
 
 Target OS: Debian 11 (last tested: 15/11/2021)
