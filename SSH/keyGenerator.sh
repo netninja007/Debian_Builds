@@ -9,28 +9,20 @@ apt upgrade
 #Install ssh
 apt install ssh
 
-#Remove default ssh config file and replace with hardened config file
-rm /etc/ssh/sshd_config && cp sshd_config /etc/ssh/
+#Regenerate the RSA and ED25519 keys
+rm -f /etc/ssh/ssh_host_*
+ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key -N ""
+ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ""
 
-#Start ssh server
-systemctl start ssh
+#Enable the RSA and ED25519 keys
+sed -i 's/^\#HostKey \/etc\/ssh\/ssh_host_\(rsa\|ed25519\)_key$/HostKey \/etc\/ssh\/ssh_host_\1_key/g' /etc/ssh/sshd_config
 
-#Enable ssh server on start-up
-systemctl enable ssh
+#Remove small Diffie-Hellman moduli
+awk '$5 >= 3071' /etc/ssh/moduli > /etc/ssh/moduli.safe
+mv -f /etc/ssh/moduli.safe /etc/ssh/moduli
 
-#Switch to home directory
-cd ~
+Restrict supported key exchange, cipher, and MAC algorithms
+echo -e "\n# Restrict key exchange, cipher, and MAC algorithms, as per sshaudit.com\n# hardening guide.\nKexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group-exchange-sha256\nCiphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr\nMACs hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-128-etm@openssh.com\nHostKeyAlgorithms ssh-ed25519,ssh-ed25519-cert-v01@openssh.com,sk-ssh-ed25519@openssh.com,sk-ssh-ed25519-cert-v01@openssh.com,rsa-sha2-256,rsa-sha2-512,rsa-sha2-256-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com" > /etc/ssh/sshd_config.d/ssh-audit_hardening.conf
 
-#Generate SSH keys
-ssh-keygen
-
-#Get users public key
-echo "Paste your public key now". (If none, just press ENTER)
-
-#Store users public key in variable "publickey"
-read publickey
-
-#Paste public key into "authorized_keys
-echo publickey > .ssh/authorized_keys
-
-echo "If you provided a public key restart the SSH server with "sudo systemctl restart ssh". If not, add your public key to the .ssh/authorized_keys file and then restart the ssh server to apply the changes"
+#Restart OpenSSH Server
+systemctl restart ssh
