@@ -27,7 +27,7 @@ echo -e "\n# Restrict key exchange, cipher, and MAC algorithms, as per sshaudit.
 #/etc/ssh/sshd_config modifications
 echo "Protocol 2" >> /etc/ssh/sshd_config
 
-sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
+sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/g' /etc/ssh/sshd_config
 
 #Restart OpenSSH Server
 systemctl restart ssh
