@@ -28,6 +28,12 @@ echo -e "\n# Restrict key exchange, cipher, and MAC algorithms, as per sshaudit.
 echo "Protocol 2" >> /etc/ssh/sshd_config
 
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/g' /etc/ssh/sshd_config
+sed -i 's/#MaxAuthTries 6/MaxAuthTries 5/g' /etc/ssh/sshd_config
+sed -i 's/#MaxSessions 10/MaxSessions 1/g' /etc/ssh/sshd_config
+sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
+sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords no/g' /etc/ssh/sshd_config
+sed -i 's/#X11Forwarding yes/X11Forwarding no/g' /etc/ssh/sshd_config
 
 #Restart OpenSSH Server
 systemctl restart ssh
