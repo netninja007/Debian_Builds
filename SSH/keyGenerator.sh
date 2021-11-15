@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Update system
-apt update
+sudo apt update
 
 #Upgrade system
 apt upgrade
