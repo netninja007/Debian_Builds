@@ -35,8 +35,8 @@ Protocol 2
 #LoginGraceTime 2m
 PermitRootLogin no
 #StrictModes yes
-MaxAuthTries 6
-MaxSessions 3
+MaxAuthTries 5
+MaxSessions 1
 
 PubkeyAuthentication yes
 
