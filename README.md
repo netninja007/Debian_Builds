@@ -1,2 +1,2 @@
 # Debian_Builds
-This repository contains bash scripts that are used for Debian. Scripts should be run on a fresh install of Debian
+This repository contains bash scripts with the purpose of easing the installation of Debian services.
