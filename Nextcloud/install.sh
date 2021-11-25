@@ -3,20 +3,8 @@
 #Update and upgrade the system to the latest version.
 apt update && apt upgrade
 
-#Install the command wget (used to fetch the nextcloud install zip file).
-apt install wget
-
-#Install the command unzip (used to unzip the nextcloud install file).
-apt install unzip
-
-#Install the the software nginx (the web server software used to serve nextcloud).
-apt install nginx
-
-#Install the database mariadb (the database which nextcloud will connect to).
-apt install mariadb-server
-
-#Install certbot (used to request an SSL certificate (HTTPS) for your domain).
-apt install certbot python3-certbot-nginx
+#Install required applications
+apt install wget unzip nginx mariadb-server
 
 #Start the nginx service.
 systemctl start nginx
