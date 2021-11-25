@@ -60,4 +60,5 @@ rm /etc/nginx/sites-enabled/default
 
 onion=`cat /var/lib/tor/nextcloud/hostname`
 
-echo "Your onion url is $onion"
+echo "Your onion url is"
+echo $onion
