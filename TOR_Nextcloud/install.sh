@@ -22,8 +22,8 @@ systemctl enable mariadb
 apt install tor
 
 #Enable the hidden service
-echo >> "HiddenServiceDir /var/lib/tor/nextcloud/"
-echo >> "HiddenServicePort 80 127.0.0.1:80"
+echo "HiddenServiceDir /var/lib/tor/nextcloud/" >> /etc/tor/torrc
+echo "HiddenServicePort 80 127.0.0.1:80" >> /etc/tor/torrc
 systemctl enable tor
 systemctl start tor
 
