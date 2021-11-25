@@ -23,11 +23,10 @@ echo "HiddenServiceDir /var/lib/tor/nextcloud/" >> /etc/tor/torrc
 echo "HiddenServicePort 80 127.0.0.1:80" >> /etc/tor/torrc
 systemctl enable tor
 systemctl start tor
+systemctl restart tor
 
-#Start the php fpm service.
+#Start and enable the php fpm service.
 systemctl start php7.4-fpm
-
-#Enable the php fpm service.
 systemctl enable php7.4-fpm
 
 #"mysql_secure_installation" is a script for securely setting up the database.
