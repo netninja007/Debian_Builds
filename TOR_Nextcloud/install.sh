@@ -4,7 +4,7 @@
 apt update && apt upgrade
 
 #Install required applications
-apt install wget unzip nginx mariadb-server
+apt install wget unzip nginx mariadb-server php7.4 php7.4-fpm php7.4-mysql php-common php7.4-cli php7.4-common php7.4-json php7.4-opcache php7.4-readline php7.4-mbstring php7.4-xml php7.4-gd php7.4-curl php-imagick php7.4-zip php7.4-xml php7.4-bz2 php7.4-intl php7.4-bcmath php7.4-gmp
 
 #Start the nginx service.
 systemctl start nginx
@@ -26,9 +26,6 @@ echo >> "HiddenServiceDir /var/lib/tor/nextcloud/"
 echo >> "HiddenServicePort 80 127.0.0.1:80"
 systemctl enable tor
 systemctl start tor
-
-#Install the required php programs nextcloud needs to function.
-apt install php7.4 php7.4-fpm php7.4-mysql php-common php7.4-cli php7.4-common php7.4-json php7.4-opcache php7.4-readline php7.4-mbstring php7.4-xml php7.4-gd php7.4-curl php-imagick php7.4-zip php7.4-xml php7.4-bz2 php7.4-intl php7.4-bcmath php7.4-gmp
 
 #Start the php fpm service.
 systemctl start php7.4-fpm
