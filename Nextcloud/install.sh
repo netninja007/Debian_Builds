@@ -42,6 +42,9 @@ sed -i -e "s/user_domain/$domain/g" nextcloud.conf
 #Copy the "nextcloud.conf" to the nginx configuration directory.
 cp nextcloud.conf /etc/nginx/conf.d/nextcloud.conf
 
+#Remove the default website configuration that's applied when nginx installs. This configuration takes precendence over our nextcloud configuration so we remove it.
+rm /etc/nginx/sites-enabled/default
+
 #Restart the nginx service to apply the changes.
 systemctl restart nginx
 
@@ -53,9 +56,6 @@ unzip nextcloud-22.2.0.zip -d /usr/share/nginx
 
 #Change the user and group ownership permissions of the directory "/usr/share/nginx/nextcloud" to user/group "www-data".
 chown -R www-data:www-data /usr/share/nginx/nextcloud
-
-#Remove the default website configuration that's applied when nginx installs. This configuration takes precendence over our nextcloud configuration so we remove it.
-rm /etc/nginx/sites-enabled/default
 
 #Print the folling string to get input regarding which email to use for SSL certificate info.
 echo What email should I use to register your SSL certifcate?
