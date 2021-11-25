@@ -30,6 +30,15 @@ systemctl start mariadb
 #Enable the mariadb database on start-up.
 systemctl enable mariadb
 
+#Install the tor service
+apt install tor
+
+#Enable the hidden service
+echo >> "HiddenServiceDir /var/lib/tor/nextcloud/"
+echo >> "HiddenServicePort 80 127.0.0.1:80"
+systemctl enable tor
+systemctl start tor
+
 #Install the required php programs nextcloud needs to function.
 apt install php7.4 php7.4-fpm php7.4-mysql php-common php7.4-cli php7.4-common php7.4-json php7.4-opcache php7.4-readline php7.4-mbstring php7.4-xml php7.4-gd php7.4-curl php-imagick php7.4-zip php7.4-xml php7.4-bz2 php7.4-intl php7.4-bcmath php7.4-gmp
 
@@ -45,11 +54,7 @@ mysql_secure_installation
 #Enter the mariadb program. Here you need to create the database, grant the necessary privileges and apply them. See "README.md" regarding the commands needed here.
 mariadb
 
-#Print to the terminal the following line.
-echo "What is your domain name?"
-
-#Capture user's input and store it in the variable "domain".
-read domain
+$domain = localhost
 
 #In the "nextcloud.conf" file, replace "user_domain" with the user's supplied input which is stored in the variable domain.
 sed -i -e "s/user_domain/$domain/g" nextcloud.conf
@@ -72,11 +77,7 @@ chown -R www-data:www-data /usr/share/nginx/nextcloud
 #Remove the default website configuration that's applied when nginx installs. This configuration takes precendence over our nextcloud configuration so we remove it.
 rm /etc/nginx/sites-enabled/default
 
-#Print the folling string to get input regarding which email to use for SSL certificate info.
-echo What email should I use to register your SSL certifcate?
+$onion = `cat /var/lib/tor/nextcloud/hostname`
 
-#Store user's input in the variable "email".
-read email
+echo "Your onion url is $onion"
 
-#Use the certbot program to request an SSL certificate using both "email" and "domain" variables.
-sudo certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --email $email -d $domain
