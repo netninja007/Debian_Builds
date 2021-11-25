@@ -3,20 +3,8 @@
 #Update and upgrade the system to the latest version.
 apt update && apt upgrade
 
-#Install the command wget (used to fetch the nextcloud install zip file).
-apt install wget
-
-#Install the command unzip (used to unzip the nextcloud install file).
-apt install unzip
-
-#Install the the software nginx (the web server software used to serve nextcloud).
-apt install nginx
-
-#Install the database mariadb (the database which nextcloud will connect to).
-apt install mariadb-server
-
-#Install certbot (used to request an SSL certificate (HTTPS) for your domain).
-apt install certbot python3-certbot-nginx
+#Install dependencies
+apt install wget unzip nginx mariadb-server certbot python3-certbot-nginx php7.4 php7.4-fpm php7.4-mysql php-common php7.4-cli php7.4-common php7.4-json php7.4-opcache php7.4-readline php7.4-mbstring php7.4-xml php7.4-gd php7.4-curl php-imagick php7.4-zip php7.4-xml php7.4-bz2 php7.4-intl php7.4-bcmath php7.4-gmp
 
 #Start the nginx service.
 systemctl start nginx
@@ -29,9 +17,6 @@ systemctl start mariadb
 
 #Enable the mariadb database on start-up.
 systemctl enable mariadb
-
-#Install the required php programs nextcloud needs to function.
-apt install php7.4 php7.4-fpm php7.4-mysql php-common php7.4-cli php7.4-common php7.4-json php7.4-opcache php7.4-readline php7.4-mbstring php7.4-xml php7.4-gd php7.4-curl php-imagick php7.4-zip php7.4-xml php7.4-bz2 php7.4-intl php7.4-bcmath php7.4-gmp
 
 #Start the php fpm service.
 systemctl start php7.4-fpm
