@@ -58,6 +58,6 @@ chown -R www-data:www-data /usr/share/nginx/nextcloud
 #Remove the default website configuration that's applied when nginx installs. This configuration takes precendence over our nextcloud configuration so we remove it.
 rm /etc/nginx/sites-enabled/default
 
-$onion = `cat /var/lib/tor/nextcloud/hostname`
+$onion=`cat /var/lib/tor/nextcloud/hostname`
 
 echo "Your onion url is $onion"
