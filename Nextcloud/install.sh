@@ -6,23 +6,14 @@ apt update && apt upgrade
 #Install dependencies
 apt install wget unzip nginx mariadb-server certbot python3-certbot-nginx php7.4 php7.4-fpm php7.4-mysql php-common php7.4-cli php7.4-common php7.4-json php7.4-opcache php7.4-readline php7.4-mbstring php7.4-xml php7.4-gd php7.4-curl php-imagick php7.4-zip php7.4-xml php7.4-bz2 php7.4-intl php7.4-bcmath php7.4-gmp
 
-#Start the nginx service.
-systemctl start nginx
+#Enable nginx on start-up and start the service
+systemctl enable nginx && systemctl start nginx
 
-#Enable the nginx service on start-up.
-systemctl enable nginx
+#Enable mariadb on start-up and start the service
+systemctl enable mariadb && systemctl start mariadb
 
-#Start the mariadb database.
-systemctl start mariadb
-
-#Enable the mariadb database on start-up.
-systemctl enable mariadb
-
-#Start the php fpm service.
-systemctl start php7.4-fpm
-
-#Enable the php fpm service.
-systemctl enable php7.4-fpm
+#Enable php-fpm on start-up and start the service
+systemctl enable php7.4-fpm && systemctl start php7.4-fpm
 
 #"mysql_secure_installation" is a script for securely setting up the database.
 mysql_secure_installation
@@ -46,7 +37,7 @@ cp nextcloud.conf /etc/nginx/conf.d/nextcloud.conf
 rm /etc/nginx/sites-enabled/default
 
 #Restart the nginx service to apply the changes.
-systemctl restart nginx
+systemctl reload nginx
 
 #Fetch the latest nextcloud release (this URL needs to be changed/updated accourding to the latest release.
 wget https://download.nextcloud.com/server/releases/nextcloud-22.2.0.zip
